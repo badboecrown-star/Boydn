@@ -1,260 +1,636 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BOYDN OFFICIAL MUSIC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BOYDN • Official Music Vault • PRO</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+        /* PRELOADER PRO */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, #0a0a1a, #000000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .preloader.hide-preloader {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader-circle {
+            width: 90px;
+            height: 90px;
+            border: 4px solid rgba(0, 200, 255, 0.15);
+            border-top: 4px solid #00d4ff;
+            border-right: 4px solid #7b2eff;
+            border-radius: 50%;
+            animation: spinPro 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+            box-shadow: 0 0 30px rgba(0, 180, 255, 0.5);
+        }
+        @keyframes spinPro {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .loader-text {
+            margin-top: 30px;
+            font-size: 1.4rem;
+            letter-spacing: 4px;
+            background: linear-gradient(135deg, #ffffff, #00d4ff, #7b2eff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 800;
+        }
+        .main-content {
+            opacity: 0;
+            transition: opacity 0.7s ease;
+        }
+        .main-content.visible {
+            opacity: 1;
+        }
 
-<style>
-body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background:#0b0b0b;
-    color:white;
-}
+        body {
+            background: #0a0a0f;
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+            scroll-behavior: smooth;
+        }
 
-/* HEADER */
-header{
-    height:100vh;
-    background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
-    url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f');
-    background-size:cover;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:20px;
-}
+        /* Modern scroll */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #00d4ff, #7b2eff);
+            border-radius: 10px;
+        }
 
-header h1{
-    font-size:4rem;
-    color:#00ffcc;
-}
+        /* Main Layout */
+        .app-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #0a0a14 0%, #05050a 100%);
+            padding-bottom: 90px;
+        }
 
-.btn{
-    padding:12px 25px;
-    margin:10px;
-    border-radius:30px;
-    text-decoration:none;
-    color:white;
-    background:#25D366;
-    display:inline-block;
-}
+        /* Header Hero */
+        .hero-section {
+            background: linear-gradient(135deg, rgba(0, 20, 40, 0.95), rgba(5, 5, 20, 0.98));
+            border-bottom: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,212,255,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .logo-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff, #00d4ff, #7b2eff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -1px;
+        }
+        .badge {
+            background: rgba(0, 212, 255, 0.15);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.8rem;
+            backdrop-filter: blur(10px);
+        }
+        .search-box {
+            max-width: 550px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(20, 20, 40, 0.9);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 60px;
+            font-size: 1rem;
+            color: white;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .search-input:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+        }
+        .search-results {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 25, 0.98);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            max-height: 350px;
+            overflow-y: auto;
+            display: none;
+            z-index: 100;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
 
-/* SECTIONS */
-section{
-    padding:70px 10%;
-}
+        /* Main Content */
+        .content-area {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin: 1.8rem 0 1.2rem 0;
+            background: linear-gradient(95deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            border-left: 4px solid #00d4ff;
+            padding-left: 1rem;
+        }
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 1.2rem;
+        }
+        .track-card {
+            background: rgba(20, 20, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 1.2rem;
+            padding: 1rem;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            cursor: pointer;
+        }
+        .track-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            border-color: #00d4ff;
+            box-shadow: 0 20px 30px -12px rgba(0, 212, 255, 0.3);
+            background: rgba(30, 30, 55, 0.9);
+        }
+        .track-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        .track-title {
+            font-weight: 700;
+            font-size: 1rem;
+            margin-top: 0.7rem;
+        }
+        .artist-name {
+            color: #a0a0c0;
+            font-size: 0.75rem;
+        }
+        .btn-icon {
+            background: linear-gradient(135deg, rgba(0,212,255,0.2), rgba(123,46,255,0.2));
+            padding: 0.35rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            border: none;
+            color: white;
+            transition: 0.2s;
+            margin-top: 6px;
+        }
+        .btn-icon:hover {
+            background: linear-gradient(135deg, #00d4ff, #7b2eff);
+            transform: scale(1.05);
+        }
 
-.title{
-    text-align:center;
-    color:#00ffcc;
-    margin-bottom:40px;
-}
+        /* BOTTOM NAVIGATION - 3 BUTTONS PRO */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(8, 8, 18, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(0, 212, 255, 0.3);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            z-index: 1000;
+        }
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.2s;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+        }
+        .nav-btn i {
+            font-size: 1.5rem;
+        }
+        .nav-btn.active {
+            color: #00d4ff;
+            background: rgba(0, 212, 255, 0.1);
+        }
+        .nav-btn:hover {
+            color: #00d4ff;
+        }
 
-/* MUSIC PLAYER */
-.player-box{
-    max-width:500px;
-    margin:auto;
-    background:#1a1a1a;
-    padding:20px;
-    border-radius:15px;
-    text-align:center;
-}
+        /* Now Playing Bar */
+        .now-playing {
+            position: fixed;
+            bottom: 70px;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #0f0f1f, #05050a);
+            border-top: 1px solid rgba(0, 212, 255, 0.4);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            padding: 0.6rem 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            z-index: 999;
+            backdrop-filter: blur(12px);
+        }
+        .player-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+        .player-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .player-btn:hover {
+            color: #00d4ff;
+            transform: scale(1.1);
+        }
 
-audio{
-    width:100%;
-}
-
-/* GRID */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:#1a1a1a;
-    padding:15px;
-    border-radius:12px;
-    text-align:center;
-}
-
-.card img{
-    width:100%;
-    border-radius:10px;
-}
-
-/* VIDEO */
-iframe{
-    width:100%;
-    height:200px;
-    border-radius:10px;
-}
-
-/* CONTACT */
-.contact{
-    text-align:center;
-    background:#111;
-    padding:50px;
-}
-
-/* FOOTER */
-footer{
-    text-align:center;
-    padding:20px;
-    background:#000;
-    color:#777;
-}
-</style>
+        @media (max-width: 600px) {
+            .music-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 0.8rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
 </head>
-
 <body>
 
-<!-- HERO -->
-<header>
-    <div>
-        <h1>BOYDN</h1>
-        <p>Official Music & Entertainment</p>
+<!-- PRELOADER 15 SECONDS -->
+<div id="preloader" class="preloader">
+    <div class="loader-circle"></div>
+    <div class="loader-text">BOYDN MUSIC</div>
+    <div style="margin-top: 20px; font-size: 0.8rem; color: #00d4ff;">loading pro experience...</div>
+</div>
 
-        <a class="btn" href="#player">▶ Play Music</a>
-        <a class="btn" href="https://wa.me/255678715224">💬 WhatsApp</a>
+<div id="mainContent" class="main-content">
+<div class="app-container">
+    <!-- HERO SECTION -->
+    <div class="hero-section">
+        <div class="logo-area">
+            <div class="logo">BOYDN <span style="font-size:0.9rem;">🎵 PRO</span></div>
+            <div class="badge"><i class="fas fa-crown"></i> Official Artist · Black to Blue Era</div>
+        </div>
+        <div class="search-box">
+            <input type="text" id="searchInput" class="search-input" placeholder="Tafuta wimbo au msanii... Burna, Diamond, Boydn, Rema...">
+            <div id="searchResults" class="search-results"></div>
+        </div>
     </div>
-</header>
 
-<!-- MUSIC PLAYER -->
-<section id="player">
-<h2 class="title">🎧 Sikio la Kwanza</h2>
+    <!-- DYNAMIC CONTENT -->
+    <div class="content-area" id="dynamicContent"></div>
 
-<div class="player-box">
-    <img src="https://via.placeholder.com/400x400" style="width:100%;border-radius:10px;">
+    <!-- NOW PLAYING BAR -->
+    <div class="now-playing" id="nowPlayingBar">
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <i class="fas fa-music" style="color:#00d4ff;"></i>
+            <div>
+                <div id="activeTrackName" style="font-weight:600;">Boydn - Be Mine</div>
+                <div id="activeArtistLabel" style="font-size:0.7rem; color:#aaa;">Boydn</div>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button class="player-btn" id="prevBtn"><i class="fas fa-backward-step"></i></button>
+            <button class="player-btn" id="playPauseBtn"><i class="fas fa-play-circle" style="font-size:1.8rem;"></i></button>
+            <button class="player-btn" id="nextBtn"><i class="fas fa-forward-step"></i></button>
+        </div>
+        <div><i class="fas fa-volume-up"></i></div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION - 3 BUTTONS -->
+    <div class="bottom-nav">
+        <button class="nav-btn" data-page="home" id="navHome"><i class="fas fa-home"></i><span>Nyumbani</span></button>
+        <button class="nav-btn" data-page="liked" id="navLiked"><i class="fas fa-heart"></i><span>Vipendwa</span></button>
+        <button class="nav-btn" data-page="artists" id="navArtists"><i class="fas fa-microphone-alt"></i><span>Wasanii</span></button>
+    </div>
+</div>
+</div>
+
+<script>
+    // --------------------------------------------------------------
+    // EXTENSIVE MUSIC DATABASE - NYIMBO NYINGI SANA
+    // --------------------------------------------------------------
+    const boydnCatalog = [
+        { id: "b1", title: "Black to Blue", artist: "Boydn", cover: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", liked: false },
+        { id: "b2", title: "Midnight Dreams", artist: "Boydn", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", liked: false },
+        { id: "b3", title: "Tunaendana", artist: "Boydn ft Vichelinz", cover: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", liked: false },
+        { id: "b4", title: "Be Mine", artist: "Boydn", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", liked: false },
+        { id: "b5", title: "Sina Neno", artist: "Boydn", cover: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3", liked: false },
+        { id: "b6", title: "Am Dead Inside", artist: "Boydn", cover: "https://images.unsplash.com/photo-1587731556938-387f55b9c3f4?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3", liked: false },
+        { id: "b7", title: "Nairobi Heat", artist: "Boydn", cover: "https://images.unsplash.com/photo-1614680376739-c4143f5c6e6d?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3", liked: false },
+        { id: "b8", title: "Mapenzi Gumu", artist: "Boydn ft Kemzy", cover: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3", liked: false },
+        { id: "b9", title: "Durban Love", artist: "Boydn", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3", liked: false },
+        { id: "b10", title: "Nisamehe", artist: "Boydn", cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3", liked: false }
+    ];
+
+    const globalArtists = [
+        { id: "g1", title: "Last Last", artist: "Burna Boy", cover: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", liked: false },
+        { id: "g2", title: "Calm Down", artist: "Rema", cover: "https://images.unsplash.com/photo-1587731556938-387f55b9c3f4?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", liked: false },
+        { id: "g3", title: "Soso", artist: "Omah Lay", cover: "https://images.unsplash.com/photo-1614680376739-c4143f5c6e6d?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", liked: false },
+        { id: "g4", title: "People", artist: "Libianca", cover: "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", liked: false },
+        { id: "g5", title: "Rush", artist: "Ayra Starr", cover: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3", liked: false },
+        { id: "g6", title: "Kiliwe", artist: "Diamond Platnumz", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3", liked: false },
+        { id: "g7", title: "Yatapita", artist: "Diamond Platnumz", cover: "https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3", liked: false },
+        { id: "g8", title: "Unavailable", artist: "Davido", cover: "https://images.unsplash.com/photo-1587731556938-387f55b9c3f4?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3", liked: false },
+        { id: "g9", title: "Flowers", artist: "Miley Cyrus", cover: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3", liked: false },
+        { id: "g10", title: "Espresso", artist: "Sabrina Carpenter", cover: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-10.mp3", liked: false },
+        { id: "g11", title: "Seven", artist: "Jungkook", cover: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", liked: false },
+        { id: "g12", title: "Monaco", artist: "Bad Bunny", cover: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", liked: false },
+        { id: "g13", title: "Sability", artist: "Ayra Starr", cover: "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", liked: false },
+        { id: "g14", title: "FE!N", artist: "Travis Scott", cover: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=200&h=200&fit=crop", audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", liked: false }
+    ];
+
+    let allTracks = [...boydnCatalog, ...globalArtists];
+    let likedTracks = JSON.parse(localStorage.getItem("boydn_liked") || "[]");
     
-    <h3>Am Dead Inside</h3>
-    <p>Boydn - Latest Single</p>
+    // Load liked status
+    allTracks.forEach(t => { t.liked = likedTracks.some(l => l.id === t.id); });
 
-    <audio controls autoplay>
-        <source src="song.mp3" type="audio/mpeg">
-    </audio>
+    let currentAudio = null;
+    let currentPlaylist = [...allTracks];
+    let currentIdx = 0;
+    let isPlaying = false;
 
-    <br><br>
-    <a class="btn" href="song.mp3" download>⬇ Download</a>
-    <a class="btn" href="#">🎵 Boomplay</a>
-    <a class="btn" href="#">🎵 Audiomack</a>
-    <a class="btn" href="#">🎵 Spotify</a>
-</div>
-</section>
+    function saveLiked() {
+        localStorage.setItem("boydn_liked", JSON.stringify(likedTracks));
+    }
 
-<!-- DISCOGRAPHY -->
-<section>
-<h2 class="title">💿 Discography</h2>
+    function toggleLike(trackId) {
+        const track = allTracks.find(t => t.id === trackId);
+        if(track) {
+            track.liked = !track.liked;
+            if(track.liked) {
+                if(!likedTracks.some(l => l.id === track.id)) likedTracks.push(track);
+            } else {
+                likedTracks = likedTracks.filter(l => l.id !== track.id);
+            }
+            saveLiked();
+            renderCurrentPage();
+        }
+    }
 
-<div class="grid">
+    function playTrack(index) {
+        if(index < 0 || index >= currentPlaylist.length) return;
+        const track = currentPlaylist[index];
+        if(currentAudio) currentAudio.pause();
+        const audio = new Audio(track.audioUrl);
+        audio.play().catch(e => console.log);
+        currentAudio = audio;
+        currentIdx = index;
+        isPlaying = true;
+        document.getElementById("activeTrackName").innerText = track.title;
+        document.getElementById("activeArtistLabel").innerText = track.artist;
+        audio.onended = () => playTrack(currentIdx + 1);
+    }
 
-    <div class="card">
-        <img src="https://via.placeholder.com/300">
-        <h3>Am Dead Inside</h3>
-        <p>2026</p>
-        <p>Producer: XYZ</p>
-        <a class="btn" href="song.mp3" download>Download</a>
-    </div>
+    function playThisTrack(track) {
+        const idx = currentPlaylist.findIndex(t => t.id === track.id);
+        if(idx !== -1) playTrack(idx);
+        else {
+            if(currentAudio) currentAudio.pause();
+            const audio = new Audio(track.audioUrl);
+            audio.play();
+            currentAudio = audio;
+            document.getElementById("activeTrackName").innerText = track.title;
+            document.getElementById("activeArtistLabel").innerText = track.artist;
+        }
+    }
 
-    <div class="card">
-        <img src="https://via.placeholder.com/300">
-        <h3>Single 2</h3>
-        <p>2025</p>
-    </div>
+    // Render Functions
+    function renderTrackCard(track, showLike = true) {
+        return `
+            <div class="track-card" data-track='${JSON.stringify(track)}'>
+                <img class="track-img" src="${track.cover}" onerror="this.src='https://via.placeholder.com/200?text=Music'">
+                <div class="track-title">${track.title.length > 25 ? track.title.slice(0,22)+'...' : track.title}</div>
+                <div class="artist-name">${track.artist}</div>
+                <div style="display:flex; gap:6px; margin-top:8px; flex-wrap:wrap;">
+                    <button class="btn-icon play-btn"><i class="fas fa-play"></i> Cheza</button>
+                    <button class="btn-icon download-btn" data-url="${track.audioUrl}" data-name="${track.title}"><i class="fas fa-download"></i></button>
+                    ${showLike ? `<button class="btn-icon like-btn" data-id="${track.id}"><i class="fas ${track.liked ? 'fa-heart' : 'fa-heart-o'}"></i></button>` : ''}
+                </div>
+            </div>
+        `;
+    }
 
-    <div class="card">
-        <img src="https://via.placeholder.com/300">
-        <h3>Single 3</h3>
-        <p>2024</p>
-    </div>
+    function renderHome() {
+        const container = document.getElementById("dynamicContent");
+        container.innerHTML = `
+            <div class="section-title"><i class="fas fa-crown" style="color:#ffd700;"></i> ⭐ BOYDN ORIGINALS · HOTTEST ⭐</div>
+            <div class="music-grid" id="boydnGrid"></div>
+            <div class="section-title"><i class="fas fa-fire"></i> 🔥 AFROBEAT HITS · AFRICA TO WORLD</div>
+            <div class="music-grid" id="afroGrid"></div>
+            <div class="section-title"><i class="fas fa-globe"></i> 🌍 GLOBAL CHARTS · TOP TRENDING</div>
+            <div class="music-grid" id="globalGrid"></div>
+        `;
+        document.getElementById("boydnGrid").innerHTML = boydnCatalog.map(t => renderTrackCard(t, true)).join("");
+        document.getElementById("afroGrid").innerHTML = globalArtists.slice(0,6).map(t => renderTrackCard(t, true)).join("");
+        document.getElementById("globalGrid").innerHTML = globalArtists.slice(6,12).map(t => renderTrackCard(t, true)).join("");
+        attachCardEvents();
+    }
 
-</div>
-</section>
+    function renderLiked() {
+        const container = document.getElementById("dynamicContent");
+        const likedList = allTracks.filter(t => t.liked);
+        if(likedList.length === 0) {
+            container.innerHTML = `<div class="section-title"><i class="fas fa-heart"></i> Vipendwa Vyako</div><div style="text-align:center; padding:3rem;"><i class="fas fa-heart-o" style="font-size:3rem; color:#555;"></i><p>Hakuna nyimbo ulizozipenda. Bonyeza ❤️ kuongeza!</p></div>`;
+            return;
+        }
+        container.innerHTML = `<div class="section-title"><i class="fas fa-heart" style="color:#ff3366;"></i> ♥ Vipendwa Vyako (${likedList.length})</div><div class="music-grid" id="likedGrid"></div>`;
+        document.getElementById("likedGrid").innerHTML = likedList.map(t => renderTrackCard(t, true)).join("");
+        attachCardEvents();
+    }
 
-<!-- VIDEOS -->
-<section>
-<h2 class="title">🎬 Videos</h2>
+    function renderArtists() {
+        const artistMap = new Map();
+        [...boydnCatalog, ...globalArtists].forEach(t => { if(!artistMap.has(t.artist)) artistMap.set(t.artist, t.cover); });
+        const artists = Array.from(artistMap.keys());
+        const container = document.getElementById("dynamicContent");
+        container.innerHTML = `<div class="section-title"><i class="fas fa-microphone-alt"></i> WASANII WOTE DUNIANI</div><div class="music-grid" id="artistsGrid"></div>`;
+        document.getElementById("artistsGrid").innerHTML = artists.map(artist => `
+            <div class="track-card" data-artist="${artist}">
+                <img class="track-img" src="${artistMap.get(artist)}" onerror="this.src='https://via.placeholder.com/200?text=Artist'">
+                <div class="track-title">${artist}</div>
+                <div class="artist-name">Msanii ⭐</div>
+                <button class="btn-icon view-artist-songs" data-artist="${artist}"><i class="fas fa-music"></i> Nyimbo Zake</button>
+            </div>
+        `).join("");
+        document.querySelectorAll(".view-artist-songs").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const artist = btn.dataset.artist;
+                const songs = allTracks.filter(t => t.artist === artist);
+                alert(`🎵 Nyimbo za ${artist}:\n${songs.map(s => s.title).join("\n")}`);
+            });
+        });
+        attachCardEvents();
+    }
 
-<div class="grid">
+    function attachCardEvents() {
+        document.querySelectorAll(".play-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const card = btn.closest(".track-card");
+                const track = JSON.parse(card.dataset.track);
+                playThisTrack(track);
+            });
+        });
+        document.querySelectorAll(".download-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const url = btn.dataset.url;
+                const name = btn.dataset.name;
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `${name}.mp3`;
+                a.click();
+            });
+        });
+        document.querySelectorAll(".like-btn").forEach(btn => {
+            btn.addEventListener("click", (e) => {
+                e.stopPropagation();
+                const id = btn.dataset.id;
+                toggleLike(id);
+            });
+        });
+    }
 
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+    let currentPage = "home";
+    function renderCurrentPage() {
+        if(currentPage === "home") renderHome();
+        else if(currentPage === "liked") renderLiked();
+        else if(currentPage === "artists") renderArtists();
+    }
 
-</div>
-</section>
+    // Navigation
+    document.getElementById("navHome").addEventListener("click", () => { currentPage = "home"; renderCurrentPage(); updateNavActive("home"); });
+    document.getElementById("navLiked").addEventListener("click", () => { currentPage = "liked"; renderCurrentPage(); updateNavActive("liked"); });
+    document.getElementById("navArtists").addEventListener("click", () => { currentPage = "artists"; renderCurrentPage(); updateNavActive("artists"); });
+    function updateNavActive(page) {
+        document.querySelectorAll(".nav-btn").forEach(btn => btn.classList.remove("active"));
+        if(page === "home") document.getElementById("navHome").classList.add("active");
+        if(page === "liked") document.getElementById("navLiked").classList.add("active");
+        if(page === "artists") document.getElementById("navArtists").classList.add("active");
+    }
+    updateNavActive("home");
 
-<!-- TOUR -->
-<section>
-<h2 class="title">📅 Shows / Tour Dates</h2>
+    // Player controls
+    document.getElementById("playPauseBtn").addEventListener("click", () => {
+        if(currentAudio) {
+            if(currentAudio.paused) { currentAudio.play(); isPlaying = true; }
+            else { currentAudio.pause(); isPlaying = false; }
+        }
+    });
+    document.getElementById("prevBtn").addEventListener("click", () => playTrack(currentIdx - 1));
+    document.getElementById("nextBtn").addEventListener("click", () => playTrack(currentIdx + 1));
 
-<div class="card">
-    <h3>Mbeya Live Show</h3>
-    <p>15 July 2026</p>
-    <p>Samora Stadium</p>
-    <a class="btn" href="#">Buy Ticket</a>
-</div>
+    // Search
+    const searchInput = document.getElementById("searchInput");
+    const searchResults = document.getElementById("searchResults");
+    searchInput.addEventListener("input", (e) => {
+        const q = e.target.value.toLowerCase();
+        if(!q.trim()) { searchResults.style.display = "none"; return; }
+        const filtered = allTracks.filter(t => t.title.toLowerCase().includes(q) || t.artist.toLowerCase().includes(q)).slice(0,10);
+        if(filtered.length === 0) { searchResults.innerHTML = "<div style='padding:1rem;'>Hakuna matokeo</div>"; searchResults.style.display = "block"; return; }
+        searchResults.innerHTML = filtered.map(t => `<div style="padding:0.8rem; border-bottom:1px solid #333; cursor:pointer;" data-track='${JSON.stringify(t)}'>🎵 ${t.title} — ${t.artist}</div>`).join("");
+        searchResults.style.display = "block";
+        document.querySelectorAll("[data-track]").forEach(el => {
+            el.addEventListener("click", () => {
+                const track = JSON.parse(el.dataset.track);
+                playThisTrack(track);
+                searchResults.style.display = "none";
+                searchInput.value = "";
+            });
+        });
+    });
+    document.addEventListener("click", (e) => { if(!searchInput.contains(e.target)) searchResults.style.display = "none"; });
 
-<br>
-
-<div class="card">
-    <h3>BOOK BOYDN</h3>
-    <p>Harusi • Birthday • Concert</p>
-    <a class="btn" href="https://wa.me/255678715224">Book Now</a>
-</div>
-
-</section>
-
-<!-- ABOUT -->
-<section>
-<h2 class="title">👤 About Boydn</h2>
-
-<div class="card">
-<p>
-Boydn ni msanii wa Bongo Flava na Afrobeat kutoka Tanzania.
-Anasimulia maisha kupitia muziki wake na amekuwa akivutia mashabiki Afrika Mashariki.
-</p>
-</div>
-</section>
-
-<!-- MERCH -->
-<section>
-<h2 class="title">🛍 Merch</h2>
-
-<div class="grid">
-
-<div class="card">
-<h3>T-Shirt Boydn</h3>
-<p>Support artist</p>
-<a class="btn" href="#">Order</a>
-</div>
-
-<div class="card">
-<h3>Hoodie</h3>
-<p>Limited Edition</p>
-<a class="btn" href="#">Order</a>
-</div>
-
-</div>
-</section>
-
-<!-- CONTACT -->
-<section class="contact">
-<h2 class="title">📞 Contact & Booking</h2>
-
-<p>WhatsApp: +255678715224</p>
-
-<a class="btn" href="https://wa.me/255678715224">Send Message</a>
-</section>
-
-<!-- FOOTER -->
-<footer>
-© 2026 Boydn Official Music. All Rights Reserved.
-</footer>
-
+    // PRELOADER 15 SECONDS
+    const preloader = document.getElementById("preloader");
+    const main = document.getElementById("mainContent");
+    const start = Date.now();
+    function finishLoader() {
+        preloader.classList.add("hide-preloader");
+        main.classList.add("visible");
+        setTimeout(() => preloader.style.display = "none", 1000);
+    }
+    setTimeout(() => {
+        if(Date.now() - start >= 15000) finishLoader();
+        else setTimeout(finishLoader, 15000 - (Date.now() - start));
+    }, 0);
+    
+    renderHome();
+</script>
 </body>
 </html>
