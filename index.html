@@ -3,72 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boydn Official Music</title>
+<title>BOYDN OFFICIAL MUSIC</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
-
 body{
-    background:#0d0d0d;
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#0b0b0b;
     color:white;
 }
 
+/* HEADER */
 header{
     height:100vh;
-    background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+    background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
     url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f');
     background-size:cover;
-    background-position:center;
     display:flex;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     text-align:center;
     padding:20px;
 }
 
-.hero h1{
+header h1{
     font-size:4rem;
     color:#00ffcc;
 }
 
-.hero p{
-    margin:15px 0;
-    font-size:1.2rem;
-}
-
 .btn{
-    display:inline-block;
-    padding:14px 30px;
-    background:#25D366;
-    color:white;
+    padding:12px 25px;
+    margin:10px;
+    border-radius:30px;
     text-decoration:none;
-    border-radius:50px;
-    font-weight:bold;
-    transition:.3s;
+    color:white;
+    background:#25D366;
+    display:inline-block;
 }
 
-.btn:hover{
-    transform:scale(1.05);
-}
-
+/* SECTIONS */
 section{
-    padding:80px 10%;
+    padding:70px 10%;
 }
 
 .title{
     text-align:center;
-    margin-bottom:40px;
     color:#00ffcc;
+    margin-bottom:40px;
 }
 
-.music-grid{
+/* MUSIC PLAYER */
+.player-box{
+    max-width:500px;
+    margin:auto;
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
+
+audio{
+    width:100%;
+}
+
+/* GRID */
+.grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:20px;
@@ -76,8 +77,8 @@ section{
 
 .card{
     background:#1a1a1a;
-    padding:20px;
-    border-radius:15px;
+    padding:15px;
+    border-radius:12px;
     text-align:center;
 }
 
@@ -86,77 +87,173 @@ section{
     border-radius:10px;
 }
 
-.card h3{
-    margin-top:15px;
+/* VIDEO */
+iframe{
+    width:100%;
+    height:200px;
+    border-radius:10px;
 }
 
+/* CONTACT */
 .contact{
     text-align:center;
     background:#111;
+    padding:50px;
 }
 
+/* FOOTER */
 footer{
     text-align:center;
-    padding:25px;
+    padding:20px;
     background:#000;
-    color:#888;
+    color:#777;
 }
 </style>
 </head>
 
 <body>
 
+<!-- HERO -->
 <header>
-    <div class="hero">
+    <div>
         <h1>BOYDN</h1>
-        <p>Official Music Website</p>
-        <p>Afrobeat • Bongo Flava • Entertainment</p>
+        <p>Official Music & Entertainment</p>
 
-        <a class="btn"
-        href="https://wa.me/255678715224">
-        Wasiliana Nami WhatsApp
-        </a>
+        <a class="btn" href="#player">▶ Play Music</a>
+        <a class="btn" href="https://wa.me/255678715224">💬 WhatsApp</a>
     </div>
 </header>
 
+<!-- MUSIC PLAYER -->
+<section id="player">
+<h2 class="title">🎧 Sikio la Kwanza</h2>
+
+<div class="player-box">
+    <img src="https://via.placeholder.com/400x400" style="width:100%;border-radius:10px;">
+    
+    <h3>Am Dead Inside</h3>
+    <p>Boydn - Latest Single</p>
+
+    <audio controls autoplay>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <br><br>
+    <a class="btn" href="song.mp3" download>⬇ Download</a>
+    <a class="btn" href="#">🎵 Boomplay</a>
+    <a class="btn" href="#">🎵 Audiomack</a>
+    <a class="btn" href="#">🎵 Spotify</a>
+</div>
+</section>
+
+<!-- DISCOGRAPHY -->
 <section>
-    <h2 class="title">Nyimbo Zangu</h2>
+<h2 class="title">💿 Discography</h2>
 
-    <div class="music-grid">
+<div class="grid">
 
-        <div class="card">
-            <img src="https://via.placeholder.com/400x400" alt="">
-            <h3>Single 1</h3>
-            <p>Ongeza link ya YouTube au AudioMack hapa.</p>
-        </div>
-
-        <div class="card">
-            <img src="https://via.placeholder.com/400x400" alt="">
-            <h3>Single 2</h3>
-            <p>Ongeza link ya Spotify au Boomplay hapa.</p>
-        </div>
-
-        <div class="card">
-            <img src="https://via.placeholder.com/400x400" alt="">
-            <h3>Single 3</h3>
-            <p>Ongeza maelezo ya wimbo hapa.</p>
-        </div>
-
+    <div class="card">
+        <img src="https://via.placeholder.com/300">
+        <h3>Am Dead Inside</h3>
+        <p>2026</p>
+        <p>Producer: XYZ</p>
+        <a class="btn" href="song.mp3" download>Download</a>
     </div>
+
+    <div class="card">
+        <img src="https://via.placeholder.com/300">
+        <h3>Single 2</h3>
+        <p>2025</p>
+    </div>
+
+    <div class="card">
+        <img src="https://via.placeholder.com/300">
+        <h3>Single 3</h3>
+        <p>2024</p>
+    </div>
+
+</div>
 </section>
 
+<!-- VIDEOS -->
+<section>
+<h2 class="title">🎬 Videos</h2>
+
+<div class="grid">
+
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+
+</div>
+</section>
+
+<!-- TOUR -->
+<section>
+<h2 class="title">📅 Shows / Tour Dates</h2>
+
+<div class="card">
+    <h3>Mbeya Live Show</h3>
+    <p>15 July 2026</p>
+    <p>Samora Stadium</p>
+    <a class="btn" href="#">Buy Ticket</a>
+</div>
+
+<br>
+
+<div class="card">
+    <h3>BOOK BOYDN</h3>
+    <p>Harusi • Birthday • Concert</p>
+    <a class="btn" href="https://wa.me/255678715224">Book Now</a>
+</div>
+
+</section>
+
+<!-- ABOUT -->
+<section>
+<h2 class="title">👤 About Boydn</h2>
+
+<div class="card">
+<p>
+Boydn ni msanii wa Bongo Flava na Afrobeat kutoka Tanzania.
+Anasimulia maisha kupitia muziki wake na amekuwa akivutia mashabiki Afrika Mashariki.
+</p>
+</div>
+</section>
+
+<!-- MERCH -->
+<section>
+<h2 class="title">🛍 Merch</h2>
+
+<div class="grid">
+
+<div class="card">
+<h3>T-Shirt Boydn</h3>
+<p>Support artist</p>
+<a class="btn" href="#">Order</a>
+</div>
+
+<div class="card">
+<h3>Hoodie</h3>
+<p>Limited Edition</p>
+<a class="btn" href="#">Order</a>
+</div>
+
+</div>
+</section>
+
+<!-- CONTACT -->
 <section class="contact">
-    <h2 class="title">Mashabiki Wangu</h2>
-    <p>Kwa booking, collaboration au maoni, wasiliana nami moja kwa moja.</p>
-    <br>
-    <a class="btn"
-    href="https://wa.me/255678715224">
-    Tuma Ujumbe WhatsApp
-    </a>
+<h2 class="title">📞 Contact & Booking</h2>
+
+<p>WhatsApp: +255678715224</p>
+
+<a class="btn" href="https://wa.me/255678715224">Send Message</a>
 </section>
 
+<!-- FOOTER -->
 <footer>
-    © 2026 Boydn Official. All Rights Reserved.
+© 2026 Boydn Official Music. All Rights Reserved.
 </footer>
 
 </body>
