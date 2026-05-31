@@ -1,227 +1,183 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BD Graphics | Ubunifu wa Kipekee</title>
-  <style>
-    :root {
-      --primary: linear-gradient(135deg, #8b00ff, #00f0ff);
-      --text: #ffffff;
-      --bg: #0a0a0a;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    .hero {
-      height: 100vh;
-      background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.80)), 
-                  url('https://images.unsplash.com/photo-1617791160505-6f00504e3519?w=1920') center/cover no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-    }
-    .logo {
-      width: 280px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 30px rgba(139, 0, 255, 0.7));
-    }
-    h1 {
-      font-size: 3.8rem;
-      background: var(--primary);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    }
-    .tagline { 
-      font-size: 1.5rem; 
-      margin: 15px 0 35px; 
-      opacity: 0.95;
-      font-weight: 300;
-    }
-
-    .btn {
-      padding: 14px 32px;
-      font-size: 1.1rem;
-      border: none;
-      border-radius: 50px;
-      cursor: pointer;
-      transition: all 0.3s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-whatsapp {
-      background: #25D366;
-      color: white;
-    }
-    .btn-whatsapp:hover {
-      background: #128C7E;
-      transform: scale(1.05);
-    }
-
-    section { padding: 80px 5%; }
-    .services, .portfolio, .videos { background: #111; }
-    h2 { text-align: center; font-size: 2.6rem; margin-bottom: 50px; }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-    }
-    .card {
-      background: #1a1a1a;
-      border-radius: 15px;
-      overflow: hidden;
-      transition: transform 0.4s;
-    }
-    .card:hover { transform: translateY(-10px); }
-    .card img, .card video {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-    .card-content {
-      padding: 20px;
-    }
-    .card-content h3 { margin-bottom: 10px; color: #00f0ff; }
-
-    .video-container {
-      position: relative;
-      padding-top: 56.25%; /* 16:9 aspect ratio */
-    }
-    .video-container iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-    }
-
-    footer {
-      background: #000;
-      text-align: center;
-      padding: 50px 20px;
-    }
-    .whatsapp-float {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background: #25D366;
-      color: white;
-      width: 65px;
-      height: 65px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 32px;
-      box-shadow: 0 5px 20px rgba(37, 211, 102, 0.6);
-      z-index: 1000;
-      text-decoration: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AfriMart - Zawadi Bora za Kiafrika</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap');
+        
+        :root {
+            --primary: 16 185 129;
+        }
+        
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://picsum.photos/id/1015/2000/1200');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .product-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: rgb(16 185 129);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .cart-sidebar {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+        
+        .cart-sidebar.open {
+            transform: translateX(0);
+        }
+        
+        .star {
+            color: #fbbf24;
+        }
+    </style>
 </head>
-<body>
-
-  <!-- HERO SECTION - Picha uliyotaka imewekwa juu kabisa -->
-  <section class="hero">
-    <div>
-      <img src="https://i.imgur.com/0K2kI.png" alt="BD Graphics Logo" class="logo">
-      <h1>BD GRAPHICS</h1>
-      <p class="tagline">Graphics • Music Production • Video • Photography • Websites</p>
-      <a href="https://wa.me/255678715224" class="btn btn-whatsapp" target="_blank">
-        💬 Wasiliana Nasi Kupitia WhatsApp
-      </a>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="services">
-    <h2>Huduma Zetu</h2>
-    <div class="grid">
-      <div class="card"><div class="card-content"><span style="font-size:3rem;">🎨</span><h3>Graphics Design</h3><p>Logo, Posters, Flyers, Wedding Cards, Social Media Graphics n.k.</p></div></div>
-      <div class="card"><div class="card-content"><span style="font-size:3rem;">🎵</span><h3>Music Production</h3><p>Beats, Recording, Mixing, Mastering, Jingles</p></div></div>
-      <div class="card"><div class="card-content"><span style="font-size:3rem;">🎥</span><h3>Video Production</h3><p>Ads, Wedding Videos, Corporate Videos, Reels, Drone Shots</p></div></div>
-      <div class="card"><div class="card-content"><span style="font-size:3rem;">📸</span><h3>Photo Shoot</h3><p>Studio & Outdoor, Weddings, Product, Events</p></div></div>
-      <div class="card"><div class="card-content"><span style="font-size:3rem;">🌐</span><h3>Website Development</h3><p>Biashara, E-commerce, Portfolio Sites</p></div></div>
-    </div>
-  </section>
-
-  <!-- GRAPHICS DESIGN PORTFOLIO -->
-  <section class="portfolio">
-    <h2>Baadhi ya Kazi za Graphics Design</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="https://picsum.photos/id/1015/600/400" alt="Poster Design">
-        <div class="card-content"><h3>Event Poster</h3></div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/id/201/600/400" alt="Wedding Card">
-        <div class="card-content"><h3>Wedding Invitation Card</h3></div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/id/237/600/400" alt="Flyer">
-        <div class="card-content"><h3>Business Flyer</h3></div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/id/180/600/400" alt="Social Media Graphic">
-        <div class="card-content"><h3>Social Media Post</h3></div>
-      </div>
-      <div class="card">
-        <img src="https://picsum.photos/id/251/600/400" alt="Branding">
-        <div class="card-content"><h3>Logo & Branding</h3></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SHORT VIDEOS -->
-  <section class="videos">
-    <h2>Short Videos & Demo</h2>
-    <div class="grid">
-      <div class="card">
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/dQw4w9wgxcq" title="Music Production" frameborder="0" allowfullscreen></iframe>
+<body class="tail-container bg-gray-50 text-gray-900">
+    <!-- HEADER -->
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto">
+            <!-- Top bar -->
+            <div class="bg-emerald-700 text-white py-2 text-sm">
+                <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+                    <div class="flex items-center gap-6">
+                        <div class="flex items-center gap-1.5">
+                            <i class="fas fa-truck"></i>
+                            <span class="hidden md:inline">Uwasilishaji Bure kwa oda za zaidi ya TZS 150,000</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4 text-xs">
+                        <a href="#" class="hover:underline">🏴󠁹󠁴󠁿 Dar es Salaam</a>
+                        <a href="#" class="hover:underline">🇹🇿 Swahili</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main navbar -->
+            <div class="px-6 py-5 flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-emerald-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-inner">
+                        🌍
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-bold tracking-tight text-emerald-800">AfriMart</h1>
+                        <p class="text-[10px] text-emerald-600 -mt-1">Zawadi za Kiafrika</p>
+                    </div>
+                </div>
+                
+                <!-- Search -->
+                <div class="flex-1 max-w-xl mx-8">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="search-input"
+                            placeholder="Tafuta nguo, viatu, zawadi..." 
+                            class="w-full bg-gray-100 border border-gray-200 focus:border-emerald-500 rounded-full py-3 px-6 pl-12 focus:outline-none text-sm">
+                        <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                </div>
+                
+                <!-- Right side -->
+                <div class="flex items-center gap-6">
+                    <a href="#" onclick="toggleAccountModal()" class="flex flex-col items-center hover:text-emerald-600 transition-colors">
+                        <i class="fas fa-user text-2xl"></i>
+                        <span class="text-xs mt-1">Akaunti</span>
+                    </a>
+                    
+                    <button onclick="toggleCart()" class="flex flex-col items-center hover:text-emerald-600 transition-colors relative">
+                        <i class="fas fa-shopping-bag text-2xl"></i>
+                        <span class="text-xs mt-1">Kikapu</span>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">0</span>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Navigation -->
+            <nav class="border-t">
+                <div class="max-w-7xl mx-auto px-6">
+                    <ul class="flex items-center gap-8 text-sm font-medium py-4">
+                        <li><a href="#" onclick="navigateToSection('home')" class="nav-link text-emerald-700">Nyumbani</a></li>
+                        <li><a href="#" onclick="navigateToSection('shop')" class="nav-link">Duka</a></li>
+                        <li><a href="#" onclick="navigateToSection('categories')" class="nav-link">Kategoria</a></li>
+                        <li><a href="#" class="nav-link">Wanaume</a></li>
+                        <li><a href="#" class="nav-link">Wanawake</a></li>
+                        <li><a href="#" class="nav-link">Watoto</a></li>
+                        <li><a href="#" class="nav-link">Nyumbani &amp; Decor</a></li>
+                        <li class="ml-auto">
+                            <a href="#" class="flex items-center gap-2 text-emerald-600 hover:text-emerald-700">
+                                <i class="fas fa-fire"></i>
+                                <span>Ofa Maalum</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
         </div>
-        <div class="card-content"><h3>Beat Making Session</h3></div>
-      </div>
+    </header>
 
-      <div class="card">
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/3JZ_D3ELwOQ" title="Video Reel" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="card-content"><h3>Video Production Reel</h3></div>
-      </div>
-
-      <div class="card">
-        <div class="video-container">
-          <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" title="Promo Video" frameborder="0" allowfullscreen></iframe>
-        </div>
-        <div class="card-content"><h3>Commercial Ad Sample</h3></div>
-      </div>
-    </div>
-    <p style="text-align:center; margin-top:40px; opacity:0.8;">Tunaweza kukutengenezea video kama hizi au bora zaidi kwa biashara yako!</p>
-  </section>
-
-  <!-- CALL TO ACTION -->
-  <section style="text-align:center; background: linear-gradient(135deg, #8b00ff, #00f0ff); color:#000; padding:90px 20px;">
-    <h2>Tayari kuanza mradi wako?</h2>
-    <a href="https://wa.me/255678715224?text=Habari%20BD%20Graphics,%20nahitaji%20huduma..." 
-       class="btn btn-whatsapp" target="_blank" style="font-size:1.4rem; padding:20px 45px;">
-       💬 Tuma Ujumbe WhatsApp Sasa
-    </a>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 BD Graphics • Iringa, Tanzania</p>
-    <p>WhatsApp: <strong>+255 678 715 224</strong></p>
-  </footer>
-
-  <!-- Floating WhatsApp -->
-  <a href="https://wa.me/255678715224" class="whatsapp-float" target="_blank">💬</a>
-
-</body>
-</html>
+    <!-- HERO -->
+    <section id="home" class="hero-bg h-screen flex items-center text-white relative">
+        <div class="max-w-7xl mx-auto px-6 z-10">
+            <div class="max-w-lg">
+                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full mb-6">
+                    <span class="bg-emerald-400 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full">NEW</span>
+                    <span class="text-sm">Msimu wa Majira ya joto 2026</span>
+                </div>
+                
+                <h1 class="text-6xl font-bold leading-tight mb-4">
+                    Mitindo ya Kiafrika<br>ya Kisasa
+                </h1>
+                <p class="text-xl text-white/90 mb-8">
+                    Toka Dar es Salaam hadi ulimwenguni. Nguo, viatu na zawadi bora za Kiafrika.
+                </p>
+                
+                <div class="flex gap-4">
+                    <button onclick="navigateToSection('shop')" 
+                            class="bg-white text-emerald-800 hover:bg-emerald-100 transition-colors px-8 py-4 rounded-2xl font-semibold flex items-center gap-3 text-lg">
+                        <span>Nunua Sasa</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button onclick="document.getElementById('categories').scrollIntoView({ behavior: 'smooth' })" 
+                            class="border-2 border-white hover:bg-white/10 transition-colors px-8 py-4 rounded-2xl font-semibold">
+                        Tazama Kategoria
+                    </button>
+                </div>
+                
+                <div class="flex items-center gap-8 mt-12">
+                    <div>
+                        <div class="flex -space-x-4">
+                            <img src="https://picsum.photos/id/64/48/48" class="w-8 h-8 rounded-2xl border-2 border-white object-cover">
+                            <img src="https://picsum.photos/id/201/48/48" class="w-8 h-8 rounded-2xl border-2 border-white object-cover
