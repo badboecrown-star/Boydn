@@ -1,183 +1,163 @@
 <!DOCTYPE html>
 <html lang="sw">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AfriMart - Zawadi Bora za Kiafrika</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@700&display=swap');
-        
-        :root {
-            --primary: 16 185 129;
-        }
-        
-        .tail-container {
-            font-family: 'Inter', system_ui, sans-serif;
-        }
-        
-        .hero-bg {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://picsum.photos/id/1015/2000/1200');
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .product-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .product-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        }
-        
-        .nav-link {
-            position: relative;
-        }
-        
-        .nav-link:after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 0;
-            background-color: rgb(16 185 129);
-            transition: all 0.3s ease;
-        }
-        
-        .nav-link:hover:after {
-            width: 100%;
-        }
-        
-        .cart-sidebar {
-            transform: translateX(100%);
-            transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
-        }
-        
-        .cart-sidebar.open {
-            transform: translateX(0);
-        }
-        
-        .star {
-            color: #fbbf24;
-        }
-    </style>
-</head>
-<body class="tail-container bg-gray-50 text-gray-900">
-    <!-- HEADER -->
-    <header class="bg-white border-b sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto">
-            <!-- Top bar -->
-            <div class="bg-emerald-700 text-white py-2 text-sm">
-                <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-                    <div class="flex items-center gap-6">
-                        <div class="flex items-center gap-1.5">
-                            <i class="fas fa-truck"></i>
-                            <span class="hidden md:inline">Uwasilishaji Bure kwa oda za zaidi ya TZS 150,000</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-4 text-xs">
-                        <a href="#" class="hover:underline">🏴󠁹󠁴󠁿 Dar es Salaam</a>
-                        <a href="#" class="hover:underline">🇹🇿 Swahili</a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Main navbar -->
-            <div class="px-6 py-5 flex items-center justify-between">
-                <!-- Logo -->
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 bg-emerald-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold shadow-inner">
-                        🌍
-                    </div>
-                    <div>
-                        <h1 class="text-3xl font-bold tracking-tight text-emerald-800">AfriMart</h1>
-                        <p class="text-[10px] text-emerald-600 -mt-1">Zawadi za Kiafrika</p>
-                    </div>
-                </div>
-                
-                <!-- Search -->
-                <div class="flex-1 max-w-xl mx-8">
-                    <div class="relative">
-                        <input 
-                            type="text" 
-                            id="search-input"
-                            placeholder="Tafuta nguo, viatu, zawadi..." 
-                            class="w-full bg-gray-100 border border-gray-200 focus:border-emerald-500 rounded-full py-3 px-6 pl-12 focus:outline-none text-sm">
-                        <i class="fas fa-search absolute left-5 top-1/2 -translate-y-1/2 text-gray-400"></i>
-                    </div>
-                </div>
-                
-                <!-- Right side -->
-                <div class="flex items-center gap-6">
-                    <a href="#" onclick="toggleAccountModal()" class="flex flex-col items-center hover:text-emerald-600 transition-colors">
-                        <i class="fas fa-user text-2xl"></i>
-                        <span class="text-xs mt-1">Akaunti</span>
-                    </a>
-                    
-                    <button onclick="toggleCart()" class="flex flex-col items-center hover:text-emerald-600 transition-colors relative">
-                        <i class="fas fa-shopping-bag text-2xl"></i>
-                        <span class="text-xs mt-1">Kikapu</span>
-                        <span id="cart-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-full">0</span>
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Navigation -->
-            <nav class="border-t">
-                <div class="max-w-7xl mx-auto px-6">
-                    <ul class="flex items-center gap-8 text-sm font-medium py-4">
-                        <li><a href="#" onclick="navigateToSection('home')" class="nav-link text-emerald-700">Nyumbani</a></li>
-                        <li><a href="#" onclick="navigateToSection('shop')" class="nav-link">Duka</a></li>
-                        <li><a href="#" onclick="navigateToSection('categories')" class="nav-link">Kategoria</a></li>
-                        <li><a href="#" class="nav-link">Wanaume</a></li>
-                        <li><a href="#" class="nav-link">Wanawake</a></li>
-                        <li><a href="#" class="nav-link">Watoto</a></li>
-                        <li><a href="#" class="nav-link">Nyumbani &amp; Decor</a></li>
-                        <li class="ml-auto">
-                            <a href="#" class="flex items-center gap-2 text-emerald-600 hover:text-emerald-700">
-                                <i class="fas fa-fire"></i>
-                                <span>Ofa Maalum</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </header>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boydn Official Music</title>
 
-    <!-- HERO -->
-    <section id="home" class="hero-bg h-screen flex items-center text-white relative">
-        <div class="max-w-7xl mx-auto px-6 z-10">
-            <div class="max-w-lg">
-                <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full mb-6">
-                    <span class="bg-emerald-400 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full">NEW</span>
-                    <span class="text-sm">Msimu wa Majira ya joto 2026</span>
-                </div>
-                
-                <h1 class="text-6xl font-bold leading-tight mb-4">
-                    Mitindo ya Kiafrika<br>ya Kisasa
-                </h1>
-                <p class="text-xl text-white/90 mb-8">
-                    Toka Dar es Salaam hadi ulimwenguni. Nguo, viatu na zawadi bora za Kiafrika.
-                </p>
-                
-                <div class="flex gap-4">
-                    <button onclick="navigateToSection('shop')" 
-                            class="bg-white text-emerald-800 hover:bg-emerald-100 transition-colors px-8 py-4 rounded-2xl font-semibold flex items-center gap-3 text-lg">
-                        <span>Nunua Sasa</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
-                    <button onclick="document.getElementById('categories').scrollIntoView({ behavior: 'smooth' })" 
-                            class="border-2 border-white hover:bg-white/10 transition-colors px-8 py-4 rounded-2xl font-semibold">
-                        Tazama Kategoria
-                    </button>
-                </div>
-                
-                <div class="flex items-center gap-8 mt-12">
-                    <div>
-                        <div class="flex -space-x-4">
-                            <img src="https://picsum.photos/id/64/48/48" class="w-8 h-8 rounded-2xl border-2 border-white object-cover">
-                            <img src="https://picsum.photos/id/201/48/48" class="w-8 h-8 rounded-2xl border-2 border-white object-cover
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#0d0d0d;
+    color:white;
+}
+
+header{
+    height:100vh;
+    background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+    url('https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:4rem;
+    color:#00ffcc;
+}
+
+.hero p{
+    margin:15px 0;
+    font-size:1.2rem;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 30px;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    border-radius:50px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+section{
+    padding:80px 10%;
+}
+
+.title{
+    text-align:center;
+    margin-bottom:40px;
+    color:#00ffcc;
+}
+
+.music-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1a1a1a;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
+
+.card img{
+    width:100%;
+    border-radius:10px;
+}
+
+.card h3{
+    margin-top:15px;
+}
+
+.contact{
+    text-align:center;
+    background:#111;
+}
+
+footer{
+    text-align:center;
+    padding:25px;
+    background:#000;
+    color:#888;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="hero">
+        <h1>BOYDN</h1>
+        <p>Official Music Website</p>
+        <p>Afrobeat • Bongo Flava • Entertainment</p>
+
+        <a class="btn"
+        href="https://wa.me/255678715224">
+        Wasiliana Nami WhatsApp
+        </a>
+    </div>
+</header>
+
+<section>
+    <h2 class="title">Nyimbo Zangu</h2>
+
+    <div class="music-grid">
+
+        <div class="card">
+            <img src="https://via.placeholder.com/400x400" alt="">
+            <h3>Single 1</h3>
+            <p>Ongeza link ya YouTube au AudioMack hapa.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/400x400" alt="">
+            <h3>Single 2</h3>
+            <p>Ongeza link ya Spotify au Boomplay hapa.</p>
+        </div>
+
+        <div class="card">
+            <img src="https://via.placeholder.com/400x400" alt="">
+            <h3>Single 3</h3>
+            <p>Ongeza maelezo ya wimbo hapa.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="contact">
+    <h2 class="title">Mashabiki Wangu</h2>
+    <p>Kwa booking, collaboration au maoni, wasiliana nami moja kwa moja.</p>
+    <br>
+    <a class="btn"
+    href="https://wa.me/255678715224">
+    Tuma Ujumbe WhatsApp
+    </a>
+</section>
+
+<footer>
+    © 2026 Boydn Official. All Rights Reserved.
+</footer>
+
+</body>
+</html>
